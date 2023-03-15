@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Back End Demonstration API
+  description: A simple blog API.
+  contact:
+    name: Joe Lau  
+    email: 227020101@stu.vtc.edu.hk
+  license:
+    name: Apache 2.0
+    url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
+
+servers:
+  - url: 'https://PortfolioAssignment.227020101.repl.co'
+    description: Development server
+tags:
+  - name: Users
+    description: API endpoints for user management.
+  - name: Cats
+    description: Access and perform CRUD operations on application entries.
+paths:
+  /cats:
+    get:
+      tags:
+        - Cats
+      description: Get all cats.
+      responses:
+        '200':
+          description: View of all cat records.
+        '404':
+          description: Cat was not found in the DB.
+    post:
+      tags:
+        - Cats
+      description: Create a cat.
+      requestBody:
+        description: All new cat data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./cats.json#/definitions/cat
+      responses:
+        '201':
+          description: Create confirmation.
+        '404':
+          description: Cat was not created in the DB.
+  /cats/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+        type: integer
+        required: true
+        description: Numeric id of the cat
+    get:
+      tags:
+        - Cats
+      description:
+        Get cat by id.
+      responses:
+        '200':
+          description: View of a cat record.
+        '404':
+          description: Cat was not found in the DB.
+    put:
+      tags:
+        - Cats
+      description:
+        Update cat by ID.
+      requestBody:
+        description: Update cat data by ID.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./cats.json#/definitions/cat
+      responses:
+        '202':
+          description: Update confirmation and link to record.
+        '404':
+          description: Cat was not found in the DB.
+    delete:
+      tags:
+        - Cats
+      description:
+        Delete cat by ID.
+      responses:
+        '201':
+          description: Delete confirmation.
+        '404':
+          description: User was not found in the DB.
