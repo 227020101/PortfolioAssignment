@@ -42,6 +42,6 @@ const createUser = async (ctx: RouterContext, next: any) => {
 
 // Add a protected route that requires authentication
 router.get("/private", basicAuth , getAll);
-router.post("/private", basicAuth, bodyParser(),createUser);
+router.post("/private", basicAuth, bodyParser(),validateUser,createUser);
 
 export { router };

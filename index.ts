@@ -6,6 +6,7 @@ import passport from "koa-passport";
 import { router as cats } from "./routes/cats";
 import { router as user } from "./routes/special";
 import serve from 'koa-static-folder';
+import cors from '@koa/cors';
 
 
 const app: Koa = new Koa();
@@ -20,6 +21,7 @@ const welcomeAPI = async (ctx: RouterContext, next: any) => {
 
 router.get('/api/v1', welcomeAPI);
 
+app.use(cors())
 app.use(serve('./docs'));
 app.use(logger());
 app.use(json());

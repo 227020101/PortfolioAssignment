@@ -1,4 +1,4 @@
-export const comment = {
+export const user= {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "/users",
   "title": "Users",
