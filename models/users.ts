@@ -7,15 +7,23 @@ export const findByUsername = async (username: string) => {
   return user;
 }
 
+//list all the user in the database
+export const getAll = async () => {
+  // TODO: use page, limit, order to give pagination
+  const query = "SELECT * FROM users;"
+  const data = await db.run_query(query, null);
+  return data
+}
+
 //create a new user in the database
 export const add = async (user: any) => {
-  let keys = Object.keys(user);
-  let values = Object.values(user);
-  let key = keys.join(',');
+  const keys = Object.keys(user);
+  const values = Object.values(user);
+  const key = keys.join(',');
   let parm = '';
-  for (let i: number = 0; i < values.length; i++) { parm += '?,' }
+  for (let i = 0; i < values.length; i++) { parm += '?,' }
   parm = parm.slice(0, -1);
-  let query = `INSERT INTO users (${key}) VALUES (${parm})`;
+  const query = `INSERT INTO users (${key}) VALUES (${parm})`;
   console.log(`testing ${query}`);
   try {
     await db.run_insert(query, values);

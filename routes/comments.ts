@@ -1,20 +1,20 @@
 import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
-import * as model from '../models/cats';
+import * as model from '../models/comments';
 import { basicAuth } from '../controllers/auth';
 import { validateCat } from '../controllers/validation';
 
 
-// Since we are handling cats use a URI that begins with an appropriate path
-const router = new Router({ prefix: '/api/v1/cats' });
+// Since we are handling comments use a URI that begins with an appropriate path
+const router = new Router({ prefix: '/api/v1/comments' });
 
 // Now we define the handler functions
 const getAll = async (ctx: RouterContext, next: any) => {
 
   //connect to DB
-  const cats = await model.getAll();
-  if (cats.length) {
-    ctx.body = cats;
+  const comments = await model.getAll();
+  if (comments.length) {
+    ctx.body = comments;
   } else {
     ctx.body = {}
     ctx.status = 404;
@@ -25,12 +25,12 @@ const getAll = async (ctx: RouterContext, next: any) => {
 const getById = async (ctx: RouterContext, next: any) => {
   // Get the ID from the route parameters.
   const id = +ctx.params.id;
-  const cats = await model.getById(id);
-  // If it exists then return the cat as JSON.
+  const comments = await model.getById(id);
+  // If it exists then return the comment as JSON.
   // Otherwise return a 404 Not Found status code
 
-  if (cats.length) {
-    ctx.body = cats[0];
+  if (comments.length) {
+    ctx.body = comments[0];
   } else {
     ctx.body = {}
     ctx.status = 404;
@@ -38,12 +38,12 @@ const getById = async (ctx: RouterContext, next: any) => {
   await next();
 }
 
-const createcat = async (ctx: RouterContext, next: any) => {
+const createcomment = async (ctx: RouterContext, next: any) => {
   // The body parser gives us access to the request body on ctx.request.body.
   // Use this to extract the title and fullText we were sent.
 
   // Finally send back appropriate JSON and status code.
-  // Once we move to a DB store, the newcat sent back will now have its ID.
+  // Once we move to a DB store, the newcomment sent back will now have its ID.
 
   const body = ctx.request.body;
   const result = await model.add(body);
@@ -57,19 +57,19 @@ const createcat = async (ctx: RouterContext, next: any) => {
 
   await next();
 }
-const updatecat = async (ctx: RouterContext, next: any) => {
-  //TODO: edit an cat
+const updatecomment = async (ctx: RouterContext, next: any) => {
+  //TODO: edit an comment
   // Get the ID from the route parameters.
   const id = +ctx.params.id;
 
   // Finally send back appropriate JSON and status code.
 
-  //updatecatByID(id,title,fullText);
-  // Once we move to a DB store, the newcat sent back will now have its ID.
+  //updatecommentByID(id,title,fullText);
+  // Once we move to a DB store, the newcomment sent back will now have its ID.
   const body = ctx.request.body;
 
-  let cats = await model.update(id, body);
-  if (cats = 202) {
+  let comments = await model.update(id, body);
+  if (comments = 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {
@@ -78,8 +78,8 @@ const updatecat = async (ctx: RouterContext, next: any) => {
   }
   await next();
 }
-const deletecat = async (ctx: RouterContext, next: any) => {
-  //TODO: delete an cat
+const deletecomment = async (ctx: RouterContext, next: any) => {
+  //TODO: delete an comment
   // Get the ID from the route parameters.
   const id = +ctx.params.id;
   // Finally send back appropriate JSON and status code.
@@ -92,18 +92,18 @@ const deletecat = async (ctx: RouterContext, next: any) => {
     ctx.status = 500;
     ctx.body = { err: "delete data failed" };
   }
-  //updatecatByID(id,title,fullText);
-  // Once we move to a DB store, the newcat sent back will now have its ID.
+  //updatecommentByID(id,title,fullText);
+  // Once we move to a DB store, the newcomment sent back will now have its ID.
   await next();
 }
 /* Routes are needed to connect path endpoints to handler functions.
- When an cat id needs to be matched we use a pattern to match
+ When an comment id needs to be matched we use a pattern to match
  a named route parameter. Here the name of the parameter will be 'id'
  and we will define the pattern to match at least 1 numeral. */
 router.get('/', getAll);
-router.post('/', basicAuth, bodyParser(), validateCat, createcat);
+router.post('/', basicAuth, bodyParser(), validateCat, createcomment);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat, updatecat);
-router.del('/:id([0-9]{1,})', basicAuth, deletecat);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat, updatecomment);
+router.del('/:id([0-9]{1,})', basicAuth, deletecomment);
 // Finally, define the exported object when import from other scripts.
 export { router };
