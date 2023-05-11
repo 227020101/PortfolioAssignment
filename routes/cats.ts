@@ -22,6 +22,21 @@ const getAll = async (ctx: RouterContext, next: any) => {
   await next();
 }
 
+const getByFilter = async (ctx: RouterContext, next: any) => {
+  const body = ctx.request.body;
+  const cats = await model.getByFilter(body);
+  // If it exists then return the cat as JSON.
+  // Otherwise return a 404 Not Found status code
+
+  if (cats.length) {
+    ctx.body = cats;
+  } else {
+    ctx.body = {}
+    ctx.status = 404;
+  }
+  await next();
+}
+
 const getById = async (ctx: RouterContext, next: any) => {
   // Get the ID from the route parameters.
   const id = +ctx.params.id;
@@ -101,6 +116,7 @@ const deletecat = async (ctx: RouterContext, next: any) => {
  a named route parameter. Here the name of the parameter will be 'id'
  and we will define the pattern to match at least 1 numeral. */
 router.get('/', getAll);
+router.get('/getByFilter', bodyParser(),getByFilter);
 router.post('/', basicAuth, bodyParser(), validateCat, createcat);
 router.get('/:id([0-9]{1,})', getById);
 router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat, updatecat);

@@ -1,19 +1,30 @@
 import * as db from '../helpers/database'
 
 //get a single user by the (unique) username
-export const findByUsername = async (username: string) => {
+export const findByUsername = async (username: any) => {
   const query = 'SELECT * from users where username = ?';
   const user = await db.run_query(query, [username]);
   return user;
 }
 
-//list all the user in the database
-export const getAll = async () => {
-  // TODO: use page, limit, order to give pagination
-  const query = "SELECT * FROM users;"
-  const data = await db.run_query(query, null);
-  return data
+export const LoginCheck = async (user: any) => {
+  const username = user.username;
+  const password = user.password;
+  const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
+  const values = [username, password];
+  console.log(query)
+  const result =  await db.run_query(query, values);
+  // if (result.rows.length === 1) {
+  //   const a = {
+  //     id: result.rows[0].id,
+  //     username: result.rows[0].username,
+  //     email: result.rows[0].email,
+  //     UserRole: result.rows[0].userrole
+  //   };
+  // }
+  return result;
 }
+
 
 //create a new user in the database
 export const add = async (user: any) => {

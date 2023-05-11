@@ -8,6 +8,22 @@ export const getById = async (id: any) => {
   return data;
 }
 
+//get the cats by filter
+export const getByFilter = async (cats: any) => {
+  const keys = Object.keys(cats);
+  const values = Object.values(cats);
+  let parm = '';
+  for (let i = 0; i < values.length; i++) {
+    parm += `${keys[i]}=? and `
+  }
+  parm = parm.slice(0, -4);
+  const query = `SELECT * FROM cats WHERE ${parm}`;
+  const data = await db.run_query(query, values);
+  console.log(`testing ${query}`);
+  return data;
+}
+
+
 //list all the cats in the database
 export const getAll = async () => {
   // TODO: use page, limit, order to give pagination
