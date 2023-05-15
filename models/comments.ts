@@ -2,7 +2,7 @@ import * as db from '../helpers/database'
 
 //get a single cat by its id
 export const getById = async (id: any) => {
-  const query = 'SELECT * FROM comments WHERE ID = ?';
+  const query = 'SELECT * FROM comments WHERE CatID = ?';
   const values = [id]
   const data = await db.run_query(query, values);
   return data;

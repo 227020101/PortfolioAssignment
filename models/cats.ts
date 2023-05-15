@@ -71,13 +71,11 @@ export const update = async (id: any, cats: any) => {
   const keys = Object.keys(cats);
   const values = Object.values(cats);
   let parm = '';
-  // let parms = values.join(',');
-  // console.log(`test${parms}`);
   for (let i = 0; i < values.length; i++) {
     parm += `${keys[i]}=?,`
   }
   parm = parm.slice(0, -1);
-  const query = `UPDATE cats  ${parm} SET WHERE ID = ${id}`;
+  const query = `UPDATE cats SET ${parm}  WHERE ID = ${id}`;
   console.log(`testing ${query}`);
   try {
     const xx = await db.run_update(query, values);

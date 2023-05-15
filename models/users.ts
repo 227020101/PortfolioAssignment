@@ -14,17 +14,15 @@ export const LoginCheck = async (user: any) => {
   const values = [username, password];
   console.log(query)
   const result =  await db.run_query(query, values);
-  // if (result.rows.length === 1) {
-  //   const a = {
-  //     id: result.rows[0].id,
-  //     username: result.rows[0].username,
-  //     email: result.rows[0].email,
-  //     UserRole: result.rows[0].userrole
-  //   };
-  // }
   return result;
 }
 
+//list all the users in the database
+export const getAll = async () => {
+  const query = "SELECT * FROM users;"
+  const data = await db.run_query(query, null);
+  return data
+}
 
 //create a new user in the database
 export const add = async (user: any) => {
@@ -39,6 +37,38 @@ export const add = async (user: any) => {
   try {
     await db.run_insert(query, values);
     return { status: 201 };
+  } catch (err: any) {
+    return err;
+  }
+}
+
+//delete a single User by its id
+export const deleteById = async (id: any) => {
+  const query = 'delete FROM users WHERE ID = ?';
+  const values = [id]
+  try {
+    await db.run_delete(query, values);
+    return { status: 204 };
+  } catch (err: any) {
+    return err;
+  }
+}
+
+//update a user in the database by its id
+export const update = async (id: any, users: any) => {
+  const keys = Object.keys(users);
+  const values = Object.values(users);
+  let parm = '';
+  for (let i = 0; i < values.length; i++) {
+    parm += `${keys[i]}=?,`
+  }
+  parm = parm.slice(0, -1);
+  const query = `UPDATE users SET ${parm}  WHERE ID = ${id}`;
+  console.log(`testing ${query}`);
+  try {
+    const xx = await db.run_update(query, values);
+    console.log(xx)
+    return { status: 202 };
   } catch (err: any) {
     return err;
   }
