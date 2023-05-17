@@ -13,22 +13,9 @@ export const cats = {
       "description": "Body text of the cat",
       "type": "string"
     },
-    "summary": {
-      "description": "Optional short text summary of cat",
-      "type": "string"
-    },
-    "imageURL": {
+    "imageurl": {
       "description": "URL for main image to show in cat",
       "type": "uri"
-    },
-    "birthday": {
-      "description": "Birthday of the cat",
-      "type": "string"
-    },
-    "category_ids": {
-      "description": "Category ids of the cat",
-      "type": "integer",
-      "minimum": 0
     },
     "microchipNo": {
       "description": "Microchip No of the cat",
@@ -39,5 +26,5 @@ export const cats = {
       "type": "string"
     },
   },
-  "required": ["name", "microchipNo"]
+  "required": ["name"]
 }

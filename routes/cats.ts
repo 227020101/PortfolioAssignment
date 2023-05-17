@@ -61,6 +61,7 @@ const createcat = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
 
   const body = ctx.request.body;
+  console.log(body)
   const result = await model.add(body);
   if (result.status == 201) {
     ctx.status = 201;

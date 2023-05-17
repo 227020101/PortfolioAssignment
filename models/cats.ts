@@ -27,7 +27,7 @@ export const getByFilter = async (cats: any) => {
 //list all the cats in the database
 export const getAll = async () => {
   // TODO: use page, limit, order to give pagination
-  const query = "SELECT * FROM cats;"
+  const query = "SELECT * FROM cats order by ID;"
   const data = await db.run_query(query, null);
   return data
 }
