@@ -19,7 +19,6 @@ export const getByFilter = async (cats: any) => {
   parm = parm.slice(0, -4);
   const query = `SELECT * FROM cats WHERE ${parm}`;
   const data = await db.run_query(query, values);
-  console.log(`testing ${query}`);
   return data;
 }
 
@@ -27,7 +26,7 @@ export const getByFilter = async (cats: any) => {
 //list all the cats in the database
 export const getAll = async () => {
   // TODO: use page, limit, order to give pagination
-  const query = "SELECT * FROM cats order by ID;"
+  const query = "SELECT * FROM cats order by ID desc;"
   const data = await db.run_query(query, null);
   return data
 }
@@ -36,16 +35,11 @@ export const getAll = async () => {
 export const add = async (cats: any) => {
   const keys = Object.keys(cats);
   const values = Object.values(cats);
-  //keys.push('authorid');
-  //values.push(2);
   const key = keys.join(',');
   let parm = '';
-  // let parms = values.join(',');
-  // console.log(`test${parms}`);
   for (let i = 0; i < values.length; i++) { parm += '?,' }
   parm = parm.slice(0, -1);
   const query = `INSERT INTO cats (${key}) VALUES (${parm})`;
-  console.log(`testing ${query}`);
   try {
     await db.run_insert(query, values);
     return { status: 201 };
@@ -76,10 +70,8 @@ export const update = async (id: any, cats: any) => {
   }
   parm = parm.slice(0, -1);
   const query = `UPDATE cats SET ${parm}  WHERE ID = ${id}`;
-  console.log(`testing ${query}`);
   try {
     const xx = await db.run_update(query, values);
-    console.log(xx)
     return { status: 202 };
   } catch (err: any) {
     return err;

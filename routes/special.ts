@@ -93,9 +93,9 @@ const updateUser = async (ctx: RouterContext, next: any) => {
 
 // Add a protected route that requires authentication
 router.post('/signin', bodyParser(),login);
-router.post('/signup', bodyParser(), validateUser, createUser);
+router.post('/signup', bodyParser(), createUser);
 router.get('/users', bodyParser(),basicAuth, getAll);
-router.put('/users/:id([0-9]{1,})', basicAuth, bodyParser(), validateUser, updateUser);
+router.put('/users/:id([0-9]{1,})', basicAuth, bodyParser(),  updateUser);
 router.del('/users/:id([0-9]{1,})', basicAuth, deleteUser);
 
 export { router };

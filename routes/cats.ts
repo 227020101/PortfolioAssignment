@@ -61,7 +61,7 @@ const createcat = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
 
   const body = ctx.request.body;
-  console.log(body)
+  console.log(`New Body ${ctx.request.body}`)
   const result = await model.add(body);
   if (result.status == 201) {
     ctx.status = 201;
@@ -80,10 +80,8 @@ const updatecat = async (ctx: RouterContext, next: any) => {
 
   // Finally send back appropriate JSON and status code.
 
-  //updatecatByID(id,title,fullText);
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
-
   let cats = await model.update(id, body);
   if (cats = 202) {
     ctx.body = body;
@@ -112,15 +110,16 @@ const deletecat = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
   await next();
 }
+
 /* Routes are needed to connect path endpoints to handler functions.
  When an cat id needs to be matched we use a pattern to match
  a named route parameter. Here the name of the parameter will be 'id'
  and we will define the pattern to match at least 1 numeral. */
 router.get('/', getAll);
 router.get('/getByFilter', bodyParser(),getByFilter);
-router.post('/', basicAuth, bodyParser(), validateCat, createcat);
+router.post('/', basicAuth, bodyParser(), createcat);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat, updatecat);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), updatecat);
 router.del('/:id([0-9]{1,})', basicAuth, deletecat);
 // Finally, define the exported object when import from other scripts.
 export { router };

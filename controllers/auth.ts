@@ -5,7 +5,6 @@ import * as users from '../models/users';
 
 
 const verifyPassword = (user: any, password: string) => {
-  console.log('0')
   return user.password === password;
 }
 

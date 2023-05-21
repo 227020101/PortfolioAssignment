@@ -4,6 +4,7 @@ import logger from "koa-logger";
 import json from "koa-json";
 import passport from "koa-passport";
 import { router as cats } from "./routes/cats";
+import { router as image } from "./routes/image";
 import { router as user } from "./routes/special";
 import serve from 'koa-static-folder';
 import cors from '@koa/cors';
@@ -26,6 +27,7 @@ app.use(serve('./docs'));
 app.use(logger());
 app.use(json());
 app.use(cats.routes());
+app.use(image.routes());
 app.use(passport.initialize())
 app.use(user.routes());
 
