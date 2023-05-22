@@ -9,6 +9,14 @@ export const user= {
       "description": "Username of users",
       "type": "string"
     },
+    "firstname": {
+      "description": "First NAme of users",
+      "type": "string"
+    },
+    "lastname": {
+      "description": "Last Name of users",
+      "type": "string"
+    },
     "password": {
       "description": "password of users",
       "type": "string"
