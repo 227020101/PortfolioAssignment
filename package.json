@@ -36,5 +36,11 @@
     "@typescript-eslint/eslint-plugin": "^5.59.6",
     "@typescript-eslint/parser": "^5.59.6",
     "eslint": "^8.41.0"
+  },
+  "scripts": {
+    "start": "ts-node src/main.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec ts-node src/main.ts",
+    "build": "tsc",
+    "test": "jest --coverage"
   }
 }
