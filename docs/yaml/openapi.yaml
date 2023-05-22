@@ -14,10 +14,8 @@ servers:
   - url: 'https://PortfolioAssignment.227020101.repl.co/api/V1'
     description: Development server
 tags:
-  - name: Users
-    description: API endpoints for user management.
-  - name: Cats
-    description: Access and perform CRUD operations on application entries.
+  - name: Cat Shelter
+    description: API endpoints for cat shelter management.
 paths:
   /cats:
     get:
@@ -90,3 +88,91 @@ paths:
           description: Delete confirmation.
         '404':
           description: User was not found in the DB.
+  /users:
+    get:
+      tags:
+        - Users
+      description: Get all users.
+      responses:
+        '200':
+          description: View of all user records.
+        '404':
+          description: User was not found in the DB.
+    post:
+      tags:
+        - Users
+      description: Create a user.
+      requestBody:
+        description: All new user data.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./users.json#/definitions/user
+      responses:
+        '201':
+          description: Create confirmation.
+        '404':
+          description: user was not created in the DB.
+  /users/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+        type: integer
+        required: true
+        description: Numeric id of the user
+    get:
+      tags:
+        - Users
+      description:
+        Get user by id.
+      responses:
+        '200':
+          description: View of a user record.
+        '404':
+          description: user was not found in the DB.
+    put:
+      tags:
+        - Users
+      description:
+        Update user by ID.
+      requestBody:
+        description: Update user data by ID.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./users.json#/definitions/user
+      responses:
+        '202':
+          description: Update confirmation and link to record.
+        '404':
+          description: user was not found in the DB.
+    delete:
+      tags:
+        - Users
+      description:
+        Delete user by ID.
+      responses:
+        '201':
+          description: Delete confirmation.
+        '404':
+          description: User was not found in the DB.
+  /uploadImage:
+    post:
+      tags:
+        - Upload Image
+      description: Upload Image
+      requestBody:
+        description: Upload cat image.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./uploadImage.json#/definitions/uploadImage
+      responses:
+        '201':
+          description: Create confirmation.
+        '404':
+          description: user was not created in the DB.

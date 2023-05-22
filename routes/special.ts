@@ -41,6 +41,7 @@ const getAll = async (ctx: RouterContext, next: any) => {
 const createUser = async (ctx: RouterContext, next: any) => {
   const body = ctx.request.body;
   const result = await model.add(body);
+  console.log(body)
   if (result.status == 201) {
     ctx.status = 201;
     ctx.body = body;
@@ -80,8 +81,8 @@ const updateUser = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
   console.log(body);
-  let users = await model.update(id, body);
-  if (users = 202) {
+  const users = await model.update(id, body);
+  if (users == 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {
@@ -95,7 +96,7 @@ const updateUser = async (ctx: RouterContext, next: any) => {
 router.post('/signin', bodyParser(),login);
 router.post('/signup', bodyParser(), createUser);
 router.get('/users', bodyParser(),basicAuth, getAll);
-router.put('/users/:id([0-9]{1,})', basicAuth, bodyParser(),  updateUser);
+router.put('/users/:id([0-9]{1,})', basicAuth, bodyParser(),  validateUser,updateUser);
 router.del('/users/:id([0-9]{1,})', basicAuth, deleteUser);
 
 export { router };

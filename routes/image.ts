@@ -18,8 +18,8 @@ const uploadImage = async (ctx: RouterContext, next: any) => {
   // Finally send back appropriate JSON and status code.
 
   const body = ctx.request.body;
-  let image = await model.update(id, body);
-  if (image = 202) {
+  const image = await model.update(id, body);
+  if (image == 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {

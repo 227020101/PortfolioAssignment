@@ -5,14 +5,6 @@ export const user= {
   "description": "A user in the blog",
   "type": "object",
   "properties": {
-    "firstname": {
-      "description": "firstname of users",
-      "type": "string"
-    },
-    "lastname": {
-      "description": "lastname id of users",
-      "type": "string"
-    },
     "username": {
       "description": "Username of users",
       "type": "string"
@@ -25,6 +17,10 @@ export const user= {
       "description": "email of users",
       "type": "string"
     },
+    "userrole": {
+      "description": "userrole of users",
+      "type": "string"
+    },
   },
-  "required": ["username","password"]
+  "required": ["username","password","userrole"]
 }

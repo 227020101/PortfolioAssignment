@@ -17,13 +17,17 @@ export const cats = {
       "description": "URL for main image to show in cat",
       "type": "uri"
     },
-    "microchipNo": {
-      "description": "Microchip No of the cat",
+    "location": {
+      "description": "Location of the cat",
       "type": "string"
     },
     "gender": {
       "description": "Gender of the cat",
       "type": "string"
+    },
+    "age": {
+      "description": "Age of the cat",
+      "type": "integer"
     },
   },
   "required": ["name"]

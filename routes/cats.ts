@@ -82,8 +82,8 @@ const updatecat = async (ctx: RouterContext, next: any) => {
 
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
-  let cats = await model.update(id, body);
-  if (cats = 202) {
+  const cats = await model.update(id, body);
+  if (cats == 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {
@@ -117,9 +117,9 @@ const deletecat = async (ctx: RouterContext, next: any) => {
  and we will define the pattern to match at least 1 numeral. */
 router.get('/', getAll);
 router.get('/getByFilter', bodyParser(),getByFilter);
-router.post('/', basicAuth, bodyParser(), createcat);
+router.post('/', basicAuth, bodyParser(), validateCat,createcat);
 router.get('/:id([0-9]{1,})', getById);
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), updatecat);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat,updatecat);
 router.del('/:id([0-9]{1,})', basicAuth, deletecat);
 // Finally, define the exported object when import from other scripts.
 export { router };
