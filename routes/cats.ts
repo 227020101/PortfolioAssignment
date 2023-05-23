@@ -50,6 +50,7 @@ const updatecat = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
   const cats = await model.update(id, body);
+  console.log(cats)
   if (cats.status == 202) {
     ctx.body = body;
     ctx.status = 202;

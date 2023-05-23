@@ -13,7 +13,6 @@ app.use(users.routes());
 
 const login = 'admin';
 const password= '12345678';
-let userid ;
 
 //Test get All user
 describe('Get / - a simple api endpoint', () => {

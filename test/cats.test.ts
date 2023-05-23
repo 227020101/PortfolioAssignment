@@ -16,7 +16,6 @@ const password= '12345678';
 //Test get All cats
 describe('Get / - a simple api endpoint', () => {
   test('Get all cats', async () => {
-    jest.setTimeout(10000);
     const result = await request(app.callback()).get('/api/v1/cats');
     expect(result.statusCode).toEqual(200);
   });
