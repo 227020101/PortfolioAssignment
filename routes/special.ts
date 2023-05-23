@@ -41,7 +41,7 @@ const getAll = async (ctx: RouterContext, next: any) => {
 const createUser = async (ctx: RouterContext, next: any) => {
   const body = ctx.request.body;
   const result = await model.add(body);
-  console.log(body)
+  
   if (result.status == 201) {
     ctx.status = 201;
     ctx.body = body;
@@ -80,7 +80,6 @@ const updateUser = async (ctx: RouterContext, next: any) => {
 
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
-  console.log(body);
   const users = await model.update(id, body);
   if (users == 202) {
     ctx.body = body;
@@ -94,7 +93,7 @@ const updateUser = async (ctx: RouterContext, next: any) => {
 
 // Add a protected route that requires authentication
 router.post('/signin', bodyParser(),login);
-router.post('/signup', bodyParser(), createUser);
+router.post('/signup', bodyParser(),validateUser, createUser);
 router.get('/users', bodyParser(),basicAuth, getAll);
 router.put('/users/:id([0-9]{1,})', basicAuth, bodyParser(),  validateUser,updateUser);
 router.del('/users/:id([0-9]{1,})', basicAuth, deleteUser);

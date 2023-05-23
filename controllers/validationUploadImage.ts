@@ -1,16 +1,15 @@
 import { Validator, ValidationError } from 'jsonschema';
 import { RouterContext } from 'koa-router';
-import { cats } from '../schema/cats.schema';
+import { uploadImage } from '../schema/uploadImage.schema';
 const v = new Validator()
-export const validateCat = async (ctx: RouterContext, next: any) => {
-  
+export const validateUploadImage = async (ctx: RouterContext, next: any) => {
   const validationOptions = {
     throwError: true,
     allowUnknownAttributes: false
   }
   const body = ctx.request.body;
   try {
-    v.validate(body, cats, validationOptions)
+    v.validate(body, uploadImage, validationOptions)
     await next()
   } catch (error) {
     if (error instanceof ValidationError) {

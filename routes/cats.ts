@@ -22,46 +22,13 @@ const getAll = async (ctx: RouterContext, next: any) => {
   await next();
 }
 
-const getByFilter = async (ctx: RouterContext, next: any) => {
-  const body = ctx.request.body;
-  const cats = await model.getByFilter(body);
-  // If it exists then return the cat as JSON.
-  // Otherwise return a 404 Not Found status code
-
-  if (cats.length) {
-    ctx.body = cats;
-  } else {
-    ctx.body = {}
-    ctx.status = 404;
-  }
-  await next();
-}
-
-const getById = async (ctx: RouterContext, next: any) => {
-  // Get the ID from the route parameters.
-  const id = +ctx.params.id;
-  const cats = await model.getById(id);
-  // If it exists then return the cat as JSON.
-  // Otherwise return a 404 Not Found status code
-
-  if (cats.length) {
-    ctx.body = cats[0];
-  } else {
-    ctx.body = {}
-    ctx.status = 404;
-  }
-  await next();
-}
-
 const createcat = async (ctx: RouterContext, next: any) => {
   // The body parser gives us access to the request body on ctx.request.body.
   // Use this to extract the title and fullText we were sent.
 
   // Finally send back appropriate JSON and status code.
   // Once we move to a DB store, the newcat sent back will now have its ID.
-
   const body = ctx.request.body;
-  console.log(`New Body ${ctx.request.body}`)
   const result = await model.add(body);
   if (result.status == 201) {
     ctx.status = 201;
@@ -83,7 +50,7 @@ const updatecat = async (ctx: RouterContext, next: any) => {
   // Once we move to a DB store, the newcat sent back will now have its ID.
   const body = ctx.request.body;
   const cats = await model.update(id, body);
-  if (cats == 202) {
+  if (cats.status == 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {
@@ -106,7 +73,6 @@ const deletecat = async (ctx: RouterContext, next: any) => {
     ctx.status = 500;
     ctx.body = { err: "delete data failed" };
   }
-  //updatecatByID(id,title,fullText);
   // Once we move to a DB store, the newcat sent back will now have its ID.
   await next();
 }
@@ -116,9 +82,7 @@ const deletecat = async (ctx: RouterContext, next: any) => {
  a named route parameter. Here the name of the parameter will be 'id'
  and we will define the pattern to match at least 1 numeral. */
 router.get('/', getAll);
-router.get('/getByFilter', bodyParser(),getByFilter);
 router.post('/', basicAuth, bodyParser(), validateCat,createcat);
-router.get('/:id([0-9]{1,})', getById);
 router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateCat,updatecat);
 router.del('/:id([0-9]{1,})', basicAuth, deletecat);
 // Finally, define the exported object when import from other scripts.

@@ -39,10 +39,6 @@ export const basicAuth = async (ctx: RouterContext, next: any) => {
       message: 'you are not authorized',
     };
   } else {
-    ctx.status = 200;
-    // ctx.body = {
-    //   message: 'authentication successful',
-    // };
     await next;
   }
 }

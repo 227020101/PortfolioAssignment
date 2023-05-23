@@ -24,12 +24,9 @@ export const add = async (comments: any) => {
   //values.push(2);
   const key = keys.join(',');
   let parm = '';
-  // let parms = values.join(',');
-  // console.log(`test${parms}`);
   for (let i = 0; i < values.length; i++) { parm += '?,' }
   parm = parm.slice(0, -1);
   const query = `INSERT INTO comments (${key}) VALUES (${parm})`;
-  console.log(`testing ${query}`);
   try {
     await db.run_insert(query, values);
     return { status: 201 };
@@ -55,17 +52,13 @@ export const update = async (id: any, comments: any) => {
   const keys = Object.keys(comments);
   const values = Object.values(comments);
   let parm = '';
-  // let parms = values.join(',');
-  // console.log(`test${parms}`);
   for (let i = 0; i < values.length; i++) {
     parm += `${keys[i]}=?,`
   }
   parm = parm.slice(0, -1);
   const query = `UPDATE comments  ${parm} SET WHERE ID = ${id}`;
-  console.log(`testing ${query}`);
   try {
     const xx = await db.run_update(query, values);
-    console.log(xx)
     return { status: 202 };
   } catch (err: any) {
     return err;

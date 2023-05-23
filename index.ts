@@ -22,15 +22,15 @@ const welcomeAPI = async (ctx: RouterContext, next: any) => {
 
 router.get('/api/v1', welcomeAPI);
 
-app.use(cors())
-app.use(serve('./docs'));
+
 app.use(logger());
 app.use(json());
 app.use(cats.routes());
 app.use(image.routes());
 app.use(passport.initialize())
 app.use(user.routes());
-
+app.use(cors())
+app.use(serve('./docs'));
 app.use(async (ctx: RouterContext, next: any) => {
   try {
     await next()
@@ -43,4 +43,4 @@ app.use(async (ctx: RouterContext, next: any) => {
   }
 })
 
-app.listen(10888);
+app.listen(3000);

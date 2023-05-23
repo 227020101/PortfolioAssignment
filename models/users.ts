@@ -12,7 +12,6 @@ export const LoginCheck = async (user: any) => {
   const password = user.password;
   const query = `SELECT * FROM users WHERE username = '${username}' AND password = '${password}'`;
   const values = [username, password];
-  console.log(query)
   const result =  await db.run_query(query, values);
   return result;
 }
@@ -33,7 +32,6 @@ export const add = async (user: any) => {
   for (let i = 0; i < values.length; i++) { parm += '?,' }
   parm = parm.slice(0, -1);
   const query = `INSERT INTO users (${key}) VALUES (${parm})`;
-  console.log(`testing ${query}`);
   try {
     await db.run_insert(query, values);
     return { status: 201 };
@@ -64,10 +62,8 @@ export const update = async (id: any, users: any) => {
   }
   parm = parm.slice(0, -1);
   const query = `UPDATE users SET ${parm}  WHERE ID = ${id}`;
-  console.log(`testing ${query}`);
   try {
     const xx = await db.run_update(query, values);
-    console.log(xx)
     return { status: 202 };
   } catch (err: any) {
     return err;

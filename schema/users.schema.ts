@@ -30,5 +30,5 @@ export const user= {
       "type": "string"
     },
   },
-  "required": ["username","password","userrole"]
+  "required": ["username","password"]
 }

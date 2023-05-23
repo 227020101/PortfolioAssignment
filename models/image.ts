@@ -10,10 +10,8 @@ export const update = async (id: any, cats: any) => {
   }
   parm = parm.slice(0, -1);
   const query = `UPDATE cats SET ${parm}  WHERE ID = ${id}`;
-  console.log(`testing ${query}`);
   try {
     const xx = await db.run_update(query, values);
-  
     return { status: 202 };
   } catch (err: any) {
     return err;

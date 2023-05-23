@@ -19,7 +19,7 @@ const uploadImage = async (ctx: RouterContext, next: any) => {
 
   const body = ctx.request.body;
   const image = await model.update(id, body);
-  if (image == 202) {
+  if (image.status == 202) {
     ctx.body = body;
     ctx.status = 202;
   } else {

@@ -6,7 +6,7 @@ export const image = {
   "type": "object",
   "properties": {
     "imageurl": {
-      "description": "Image of the cat",
+      "description": "Image(base64) of the cat",
       "type": "string"
     },
   },
