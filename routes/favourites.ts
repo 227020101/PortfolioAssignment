@@ -2,6 +2,7 @@ import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
 import * as model from '../models/favourites';
 import { basicAuth } from '../controllers/auth';
+import { validationFavourites } from '../controllers/validationFavourites';
 
 
 // Since we are handling cats use a URI that begins with an appropriate path
@@ -55,7 +56,7 @@ const deleteFavourites = async (ctx: RouterContext, next: any) => {
 }
 
 router.get('/:id([0-9]{1,})',basicAuth, getAll);
-router.post('/', basicAuth, bodyParser(), addFavourites);
+router.post('/', basicAuth, bodyParser(), validationFavourites ,addFavourites);
 router.del('/:id([0-9]{1,})', basicAuth, deleteFavourites);
 // Finally, define the exported object when import from other scripts.
 export { router };

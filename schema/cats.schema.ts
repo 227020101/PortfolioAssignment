@@ -27,7 +27,7 @@ export const cats = {
     },
     "age": {
       "description": "Age of the cat",
-      "type": "integer"
+      "type": "string"
     },
   },
   "required": ["name"]

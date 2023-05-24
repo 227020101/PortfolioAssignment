@@ -2,7 +2,7 @@ import Router, { RouterContext } from "koa-router";
 import bodyParser from "koa-bodyparser";
 import * as model from '../models/image';
 import { basicAuth } from '../controllers/auth';
-
+import { validateUploadImage } from '../controllers/validationUploadImage';
 
 
 // Since we are handling cats use a URI that begins with an appropriate path
@@ -30,5 +30,5 @@ const uploadImage = async (ctx: RouterContext, next: any) => {
 }
 
 
-router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), uploadImage);
+router.put('/:id([0-9]{1,})', basicAuth, bodyParser(), validateUploadImage,uploadImage);
 export { router };
