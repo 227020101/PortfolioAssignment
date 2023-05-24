@@ -1,6 +1,6 @@
 import { Validator, ValidationError } from 'jsonschema';
 import { RouterContext } from 'koa-router';
-import { uploadImage } from '../schema/uploadImage.schema';
+import { image } from '../schema/uploadImage.schema';
 const v = new Validator()
 export const validateUploadImage = async (ctx: RouterContext, next: any) => {
   const validationOptions = {
@@ -9,7 +9,7 @@ export const validateUploadImage = async (ctx: RouterContext, next: any) => {
   }
   const body = ctx.request.body;
   try {
-    v.validate(body, uploadImage, validationOptions)
+    v.validate(body, image, validationOptions)
     await next()
   } catch (error) {
     if (error instanceof ValidationError) {

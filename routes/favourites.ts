@@ -10,9 +10,9 @@ const router = new Router({ prefix: '/api/v1/favourites' });
 
 // Now we define the handler functions
 const getAll = async (ctx: RouterContext, next: any) => {
-const userid = +ctx.params.id;
-//connect to DB
-const favourites = await model.getByUserId(userid);
+  const userid = +ctx.params.id;
+  //connect to DB
+  const favourites = await model.getByUserId(userid);
   if (favourites.length) {
     ctx.body = favourites;
   } else {
@@ -55,8 +55,8 @@ const deleteFavourites = async (ctx: RouterContext, next: any) => {
   await next();
 }
 
-router.get('/:id([0-9]{1,})',basicAuth, getAll);
-router.post('/', basicAuth, bodyParser(), validationFavourites ,addFavourites);
+router.get('/:id([0-9]{1,})', basicAuth, getAll);
+router.post('/', basicAuth, bodyParser(), validationFavourites, addFavourites);
 router.del('/:id([0-9]{1,})', basicAuth, deleteFavourites);
 // Finally, define the exported object when import from other scripts.
 export { router };

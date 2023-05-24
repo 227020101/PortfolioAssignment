@@ -176,3 +176,38 @@ paths:
           description: Create confirmation.
         '404':
           description: user was not created in the DB.
+  /favourites:
+    get:
+      tags:
+        - Favourites List
+      description: Get all Favourites List by user.
+      requestBody:
+        description: Add Favourites.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: ./favourites.json#/definitions/favourites
+      responses:
+        '200':
+          description: View of all Favourites List by user
+        '404':
+          description: Not found in the DB.
+    post:
+      tags:
+        - Favourites List
+      description: Add Favourites
+      responses:
+        '201':
+          description: Create confirmation.
+        '404':
+          description: user was not created in the DB.
+    delete:
+      tags:
+        - Favourites List
+      description: Delete Favourites List.
+      responses:
+        '201':
+          description: Delete confirmation.
+        '404':
+          description: User was not found in the DB.
